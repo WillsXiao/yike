@@ -10,7 +10,7 @@
 <body>
 <div class="viewport" ng-controller="demoController">
     <!-- 侧边导航 -->
-    <div ng-class="{navs: true, collapse: collapsed}">
+    <div ng-class="{navs: true, collapse: collapsed}" ng-controller="navController">
         <dl>
             <dt class="login">
                 <div class="avatar">
@@ -18,34 +18,9 @@
                 </div>
                 <span>登录</span>
             </dt>
-            <dd class="active">
-                <a href="./index.html" class="icon-home">
-                    <span>今日一刻</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="views/older.html" class="icon-file-empty">
-                    <span>往期内容</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="views/author.html" class="icon-pencil">
-                    <span>热门作者</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="views/category.html" class="icon-menu">
-                    <span>栏目浏览</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="views/favourite.html" class="icon-heart">
-                    <span>我的喜欢</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="views/settings.html" class="icon-cog">
-                    <span>设置</span>
+            <dd class="active" ng-repeat="nav in navs">
+                <a href="{{nav.link}}" class="{{nav.icon}}" ng-click="toggle()">
+                    <span>{{nav.text}}</span>
                 </a>
             </dd>
         </dl>
@@ -62,8 +37,9 @@
             <a href="javascript:void(0);" class="search icon-search"></a>
         </div>
         <!-- 主体 -->
-        <div class="body">
+        <div class="body" ng-class="{body: true, collapse: collapsed}">
             <!--占位符-->
+            <div ng-view></div>
         </div>
     </div>
 </div>

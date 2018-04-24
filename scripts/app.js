@@ -1,5 +1,37 @@
 var app = angular.module('app', ['ngRoute', 'controllers']);
 
+// 路由
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/today', {
+            templateUrl: './views/today.html',
+            controller: 'todayController'
+        })
+        .when('/older',{
+            templateUrl: './views/older.html',
+            controller: 'olderController'
+        })
+        .when('/author',{
+            templateUrl: './views/author.html',
+            controller: 'authorController'
+        })
+        .when('/category',{
+            templateUrl: './views/category.html',
+            controller: 'categoryController'
+        })
+        .when('/favourite',{
+            templateUrl: './views/favourite.html',
+            controller: 'favouriteController'
+        })
+        .when('/settings',{
+            templateUrl: './views/settings.html',
+            controller: 'settingsController'
+        })
+        .otherwise({
+            redirectTo: '/today'
+        });
+}]);
+
 // 初始化
 app.run(['$rootScope', function ($rootScope) {
     // 设置类名初始化
