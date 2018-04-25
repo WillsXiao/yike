@@ -14,8 +14,10 @@ angular.module('controllers', [])
     }])
 
     // 今日一刻
-    .controller('todayController', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
+    .controller('todayController', ['$scope', '$http', '$filter', '$rootScope', function ($scope, $http, $filter, $rootScope) {
         var today = $filter('date')(new Date(), 'yyyy-MM-dd');
+        $rootScope.title = '今日一刻';
+        $rootScope.loaded = false;
         $http({
             url: './api/today.php',
             method: 'GET',
@@ -26,10 +28,21 @@ angular.module('controllers', [])
             console.log(value.data.posts);
             $scope.posts = value.data.posts;
             $scope.date = value.data.date;
+            $rootScope.loaded = true;
         })
     }])
 
     // 往期内容
-    .controller('olderController', ['$scope', function ($scope) {
-
+    .controller('olderController', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope) {
+        $rootScope.title = '往期内容';
+        $rootScope.loaded = false;
+        $http({
+            url: './api/older.php',
+            method: 'GET'
+        }).then(function (value) {
+            console.log(value.data);
+            $scope.posts = value.data.posts;
+            $scope.date = value.data.date;
+            $rootScope.loaded = true;
+        })
     }])
